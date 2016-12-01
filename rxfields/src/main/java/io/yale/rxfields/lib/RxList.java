@@ -1,5 +1,6 @@
 package io.yale.rxfields.lib;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -96,6 +97,10 @@ public class RxList<T> {
     public void sort(Comparator<T> comparator) {
         Collections.sort(this.list, comparator);
         subject.onNext(this.list);
+    }
+
+    public List<T> get() {
+        return new ArrayList<>(this.list);
     }
 
     public Observable<List<T>> ob() {
