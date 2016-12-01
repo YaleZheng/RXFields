@@ -6,7 +6,7 @@ provide reactive fields to program
 
 ##COMPILE
 ```gradle
-    compile "io.yale:rxfields:0.1.2"
+    compile "io.yale:rxfields:0.1.5"
 ```
 
 ##USAGE
