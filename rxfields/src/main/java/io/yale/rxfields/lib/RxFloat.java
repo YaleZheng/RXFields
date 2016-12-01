@@ -1,4 +1,4 @@
-package io.yale.rxfields.ilb;
+package io.yale.rxfields.lib;
 
 import rx.Observable;
 import rx.subjects.PublishSubject;

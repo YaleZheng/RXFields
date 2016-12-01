@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import io.yale.rxfields.ilb.RxInt;
+import io.yale.rxfields.lib.RxInt;
 
 import static io.yale.tinyuikit.lib.ViewExtension.v_findView;
 import static io.yale.tinyuikit.lib.ViewExtension.v_setClickListener;

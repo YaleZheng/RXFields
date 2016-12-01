@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.yale.rxfields.ilb">
+    package="io.yale.rxfields.lib">
 
     <application />
 

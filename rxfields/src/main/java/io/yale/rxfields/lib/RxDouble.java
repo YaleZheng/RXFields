@@ -1,4 +1,4 @@
-package io.yale.rxfields.ilb;
+package io.yale.rxfields.lib;
 
 import rx.Observable;
 import rx.subjects.PublishSubject;
@@ -7,30 +7,30 @@ import rx.subjects.PublishSubject;
  * Created by yalez on 2016/12/1.
  */
 
-public class RxShort {
-    private short field;
-    private PublishSubject<Short> subject = PublishSubject.create();
+public class RxDouble {
+    private double field;
+    private PublishSubject<Double> subject = PublishSubject.create();
 
-    public RxShort(short field) {
+    public RxDouble(double field) {
         this.field = field;
     }
 
-    public void set(short field) {
+    public void set(double field) {
         if (this.field != field) {
             this.field = field;
             subject.onNext(field);
         }
     }
 
-    public short get() {
+    public double get() {
         return this.field;
     }
 
-    public Observable<Short> ob() {
+    public Observable<Double> ob() {
         return Observable.merge(Observable.just(field), subject);
     }
 
-    public void add(short value) {
-        set((short) (get() + value));
+    public void add(double value) {
+        set(get() + value);
     }
 }
