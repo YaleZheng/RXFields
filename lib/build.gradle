@@ -25,3 +25,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "io.reactivex:rxjava:${RXJAVA_VERSION}"
 }
+
+apply from: 'bintrayUpload.gradle'
