@@ -21,6 +21,18 @@ public class RxList<T> {
         this.list = (list == null) ? new LinkedList<T>() : list;
     }
 
+    public void reset(T item) {
+        this.list.clear();
+        this.list.add(item);
+        subject.onNext(this.list);
+    }
+
+    public void reset(Collection<? extends T> collection) {
+        this.list.clear();
+        this.list.addAll(collection);
+        subject.onNext(this.list);
+    }
+
     public void add(T item) {
         this.list.add(item);
         subject.onNext(this.list);
@@ -57,6 +69,11 @@ public class RxList<T> {
 
     public void removeAll(Collection<? extends T> collection) {
         this.list.removeAll(collection);
+        subject.onNext(this.list);
+    }
+
+    public void clear() {
+        this.list.clear();
         subject.onNext(this.list);
     }
 
