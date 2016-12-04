@@ -16,7 +16,7 @@ public class RxField<T> {
     }
 
     public void set(T field) {
-        if (this.field != field) {
+        if (this.field != field && !this.field.equals(field)) {
             this.field = field;
             subject.onNext(field);
         }
