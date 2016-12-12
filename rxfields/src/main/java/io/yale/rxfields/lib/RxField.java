@@ -35,11 +35,11 @@ public class RxField<T> {
     }
 
     public void set(T field, boolean forceNotify) {
-        boolean isSame = this.field != field && !this.comparator.isEqual(this.field, field);
-        if (isSame) {
+        boolean notSame = this.field != field && !this.comparator.isEqual(this.field, field);
+        if (notSame) {
             this.field = field;
         }
-        if (!isSame || forceNotify) {
+        if (notSame || forceNotify) {
             this.subject.onNext(field);
         }
     }
