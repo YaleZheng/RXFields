@@ -7,27 +7,14 @@ import rx.subjects.PublishSubject;
  * Created by yalez on 2016/12/1.
  */
 
-public class RxDouble {
-    private double field;
-    private PublishSubject<Double> subject = PublishSubject.create();
+public class RxDouble extends RxField<Double> {
 
-    public RxDouble(double field) {
-        this.field = field;
+    public RxDouble() {
+        super(0D);
     }
 
-    public void set(double field) {
-        if (this.field != field) {
-            this.field = field;
-            subject.onNext(field);
-        }
-    }
-
-    public double get() {
-        return this.field;
-    }
-
-    public Observable<Double> ob() {
-        return Observable.merge(Observable.just(field), subject);
+    public RxDouble(Double field) {
+        super(field);
     }
 
     public void add(double value) {

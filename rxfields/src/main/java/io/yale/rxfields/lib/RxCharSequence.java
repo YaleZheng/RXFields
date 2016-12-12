@@ -9,12 +9,8 @@ public class RxCharSequence extends RxField<CharSequence> {
         super(field, new Comparator<CharSequence>() {
             @Override
             public boolean isEqual(CharSequence lhs, CharSequence rhs) {
-                return lhs.toString().equals(rhs.toString());
+                return (lhs == rhs) || (lhs != null && rhs != null && lhs.toString().equals(rhs.toString()));
             }
         });
-    }
-
-    public RxCharSequence(CharSequence field, Comparator<CharSequence> comparator) {
-        super(field, comparator);
     }
 }

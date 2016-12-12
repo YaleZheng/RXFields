@@ -7,27 +7,13 @@ import rx.subjects.PublishSubject;
  * Created by yalez on 2016/12/1.
  */
 
-public class RxBoolean {
-    private boolean field;
-    private PublishSubject<Boolean> subject = PublishSubject.create();
-
-    public RxBoolean(boolean field) {
-        this.field = field;
+public class RxBoolean extends RxField<Boolean> {
+    public RxBoolean() {
+        super(false);
     }
 
-    public void set(boolean field) {
-        if (this.field != field) {
-            this.field = field;
-            subject.onNext(field);
-        }
-    }
-
-    public boolean get() {
-        return this.field;
-    }
-
-    public Observable<Boolean> ob() {
-        return Observable.merge(Observable.just(field), subject);
+    public RxBoolean(Boolean field) {
+        super(field);
     }
 
     public void toggle() {

@@ -24,16 +24,23 @@ public class RxField<T> {
             this.comparator = new Comparator<T>() {
                 @Override
                 public boolean isEqual(T lhs, T rhs) {
-                    return lhs == rhs;
+                    return lhs == rhs || (lhs != null && rhs != null && lhs.equals(rhs));
                 }
             };
         }
     }
 
     public void set(T field) {
-        if (this.field != field && !this.comparator.isEqual(this.field, field)) {
+        set(field, false);
+    }
+
+    public void set(T field, boolean forceNotify) {
+        boolean isSame = this.field != field && !this.comparator.isEqual(this.field, field);
+        if (isSame) {
             this.field = field;
-            subject.onNext(field);
+        }
+        if (!isSame || forceNotify) {
+            this.subject.onNext(field);
         }
     }
 
