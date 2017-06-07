@@ -8,7 +8,7 @@ android {
         minSdkVersion "${MIN_SDK_VERSION}".toInteger()
         targetSdkVersion "${TARGET_SDK_VERSION}".toInteger()
         versionCode 1
-        versionName "2.0.1"
+        versionName "2.0.2"
     }
     buildTypes {
         release {

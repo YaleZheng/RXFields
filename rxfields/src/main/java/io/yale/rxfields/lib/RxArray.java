@@ -3,9 +3,8 @@ package io.yale.rxfields.lib;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import io.reactivex.subjects.PublishSubject;
+import io.reactivex.processors.PublishProcessor;
 
 /**
  *
@@ -14,7 +13,7 @@ import io.reactivex.subjects.PublishSubject;
 
 public class RxArray<T> {
     private T[] array;
-    private PublishSubject<T[]> subject = PublishSubject.create();
+    private PublishProcessor<T[]> subject = PublishProcessor.create();
 
     public RxArray(T[] array) {
         this.array = array;
@@ -64,6 +63,6 @@ public class RxArray<T> {
     }
 
     public Flowable<T[]> ob() {
-        return Flowable.merge(Flowable.just(array), subject.toFlowable(BackpressureStrategy.LATEST));
+        return Flowable.merge(Flowable.just(array), subject);
     }
 }

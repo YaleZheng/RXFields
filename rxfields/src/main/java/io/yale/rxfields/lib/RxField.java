@@ -1,9 +1,8 @@
 package io.yale.rxfields.lib;
 
 
-import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import io.reactivex.subjects.PublishSubject;
+import io.reactivex.processors.PublishProcessor;
 
 /**
  * Created by yalez on 2016/12/1.
@@ -11,7 +10,7 @@ import io.reactivex.subjects.PublishSubject;
 
 public class RxField<T> {
     private T field;
-    private PublishSubject<T> subject = PublishSubject.create();
+    private PublishProcessor<T> subject = PublishProcessor.create();
     private Comparator<T> comparator;
 
     public RxField(T field) {
@@ -50,6 +49,6 @@ public class RxField<T> {
     }
 
     public Flowable<T> ob() {
-        return Flowable.merge(Flowable.just(field), subject.toFlowable(BackpressureStrategy.LATEST));
+        return Flowable.merge(Flowable.just(field), subject);
     }
 }
