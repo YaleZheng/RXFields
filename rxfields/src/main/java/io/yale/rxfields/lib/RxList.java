@@ -7,8 +7,10 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.subjects.PublishSubject;
+
 
 /**
  * Created by yalez on 2016/12/1.
@@ -103,7 +105,7 @@ public class RxList<T> {
         return new ArrayList<>(this.list);
     }
 
-    public Observable<List<T>> ob() {
-        return Observable.merge(Observable.just(list), subject);
+    public Flowable<List<T>> ob() {
+        return Flowable.merge(Flowable.just(list), subject.toFlowable(BackpressureStrategy.LATEST));
     }
 }

@@ -1,8 +1,9 @@
 package io.yale.rxfields.lib;
 
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by yalez on 2016/12/1.
@@ -48,7 +49,7 @@ public class RxField<T> {
         return this.field;
     }
 
-    public Observable<T> ob() {
-        return Observable.merge(Observable.just(field), subject);
+    public Flowable<T> ob() {
+        return Flowable.merge(Flowable.just(field), subject.toFlowable(BackpressureStrategy.LATEST));
     }
 }

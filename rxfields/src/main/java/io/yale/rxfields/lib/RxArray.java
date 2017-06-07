@@ -3,10 +3,12 @@ package io.yale.rxfields.lib;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.subjects.PublishSubject;
 
 /**
+ *
  * Created by yalez on 2016/12/1.
  */
 
@@ -61,7 +63,7 @@ public class RxArray<T> {
         subject.onNext(this.array);
     }
 
-    public Observable<T[]> ob() {
-        return Observable.merge(Observable.just(array), subject);
+    public Flowable<T[]> ob() {
+        return Flowable.merge(Flowable.just(array), subject.toFlowable(BackpressureStrategy.LATEST));
     }
 }

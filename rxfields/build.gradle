@@ -8,7 +8,7 @@ android {
         minSdkVersion "${MIN_SDK_VERSION}".toInteger()
         targetSdkVersion "${TARGET_SDK_VERSION}".toInteger()
         versionCode 1
-        versionName "0.2.6"
+        versionName "2.0.1"
     }
     buildTypes {
         release {
@@ -20,7 +20,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "io.reactivex:rxjava:${RXJAVA_VERSION}"
+    compile "io.reactivex.rxjava2:rxjava:${RXJAVA_VERSION}"
 }
 
 apply from: 'bintrayUpload.gradle'
