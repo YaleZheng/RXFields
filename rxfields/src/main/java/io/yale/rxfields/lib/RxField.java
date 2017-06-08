@@ -2,6 +2,7 @@ package io.yale.rxfields.lib;
 
 
 import io.reactivex.Flowable;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.processors.PublishProcessor;
 
 /**
@@ -13,11 +14,11 @@ public class RxField<T> {
     private PublishProcessor<T> subject = PublishProcessor.create();
     private Comparator<T> comparator;
 
-    public RxField(T field) {
+    public RxField(@NonNull T field) {
         this(field, null);
     }
 
-    public RxField(T field, Comparator<T> comparator) {
+    public RxField(@NonNull T field, Comparator<T> comparator) {
         this.field = field;
         this.comparator = comparator;
         if (this.comparator == null) {
@@ -30,11 +31,11 @@ public class RxField<T> {
         }
     }
 
-    public void set(T field) {
+    public void set(@NonNull T field) {
         set(field, false);
     }
 
-    public void set(T field, boolean forceNotify) {
+    public void set(@NonNull T field, boolean forceNotify) {
         boolean notSame = this.field != field && !this.comparator.isEqual(this.field, field);
         if (notSame) {
             this.field = field;
@@ -44,10 +45,13 @@ public class RxField<T> {
         }
     }
 
-    public T get() {
+    public
+    @NonNull
+    T get() {
         return this.field;
     }
 
+    @NonNull
     public Flowable<T> ob() {
         return Flowable.merge(Flowable.just(field), subject);
     }

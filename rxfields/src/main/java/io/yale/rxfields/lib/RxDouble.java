@@ -1,5 +1,7 @@
 package io.yale.rxfields.lib;
 
+import io.reactivex.annotations.NonNull;
+
 /**
  * Created by yalez on 2016/12/1.
  */
@@ -10,7 +12,7 @@ public class RxDouble extends RxField<Double> {
         super(0D);
     }
 
-    public RxDouble(Double field) {
+    public RxDouble(@NonNull Double field) {
         super(field);
     }
 

@@ -4,10 +4,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 import io.reactivex.Flowable;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.annotations.Nullable;
 import io.reactivex.processors.PublishProcessor;
 
 /**
- *
  * Created by yalez on 2016/12/1.
  */
 
@@ -15,7 +16,7 @@ public class RxArray<T> {
     private T[] array;
     private PublishProcessor<T[]> subject = PublishProcessor.create();
 
-    public RxArray(T[] array) {
+    public RxArray(@NonNull T[] array) {
         this.array = array;
     }
 
@@ -25,6 +26,7 @@ public class RxArray<T> {
         }
     }
 
+    @Nullable
     public T get(int idx) {
         if (idx >= 0 && idx < this.array.length) {
             return this.array[idx];
