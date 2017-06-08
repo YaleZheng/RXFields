@@ -1,6 +1,5 @@
 package io.yale.rxfields.lib;
 
-import io.reactivex.annotations.NonNull;
 
 /**
  * Created by yalez on 2016/12/1.
@@ -11,7 +10,7 @@ public class RxLong extends RxField<Long> {
         super(0L);
     }
 
-    public RxLong(@NonNull Long field) {
+    public RxLong(Long field) {
         super(field);
     }
 

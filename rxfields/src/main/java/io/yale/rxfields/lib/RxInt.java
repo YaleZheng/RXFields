@@ -11,7 +11,7 @@ public class RxInt extends RxField<Integer> {
         super(0);
     }
 
-    public RxInt(@NonNull Integer field) {
+    public RxInt(Integer field) {
         super(field);
     }
 

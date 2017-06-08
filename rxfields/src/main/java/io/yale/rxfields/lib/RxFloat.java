@@ -1,7 +1,6 @@
 package io.yale.rxfields.lib;
 
 
-import io.reactivex.annotations.NonNull;
 
 /**
  * Created by yalez on 2016/12/1.
@@ -13,7 +12,7 @@ public class RxFloat extends RxField<Float> {
         super(0F);
     }
 
-    public RxFloat(@NonNull Float field) {
+    public RxFloat(Float field) {
         super(field);
     }
 

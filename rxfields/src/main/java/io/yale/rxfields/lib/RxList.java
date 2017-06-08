@@ -9,7 +9,6 @@ import java.util.List;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.subjects.PublishSubject;
 
 
@@ -21,7 +20,7 @@ public class RxList<T> {
     private List<T> list;
     private PublishSubject<List<T>> subject = PublishSubject.create();
 
-    public RxList(@NonNull List<T> list) {
+    public RxList(List<T> list) {
         this.list = (list == null) ? new LinkedList<T>() : list;
     }
 

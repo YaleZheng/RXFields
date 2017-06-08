@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 import io.reactivex.Flowable;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.annotations.Nullable;
+import io.reactivex.functions.Function;
 import io.reactivex.processors.PublishProcessor;
 
 /**
@@ -16,7 +16,7 @@ public class RxArray<T> {
     private T[] array;
     private PublishProcessor<T[]> subject = PublishProcessor.create();
 
-    public RxArray(@NonNull T[] array) {
+    public RxArray(T[] array) {
         this.array = array;
     }
 
@@ -26,7 +26,6 @@ public class RxArray<T> {
         }
     }
 
-    @Nullable
     public T get(int idx) {
         if (idx >= 0 && idx < this.array.length) {
             return this.array[idx];
@@ -64,7 +63,14 @@ public class RxArray<T> {
         subject.onNext(this.array);
     }
 
-    public Flowable<T[]> ob() {
-        return Flowable.merge(Flowable.just(array), subject);
+    public Flowable<Opt<T[]>> ob() {
+
+        Flowable<Opt<T[]>> optSubject = subject.map(new Function<T[], Opt<T[]>>() {
+            @Override
+            public Opt<T[]> apply(@NonNull T[] ts) throws Exception {
+                return new Opt<>(ts);
+            }
+        });
+        return Flowable.merge(Flowable.just(new Opt<>(array)), optSubject);
     }
 }
