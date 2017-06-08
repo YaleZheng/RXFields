@@ -9,6 +9,7 @@ import java.util.List;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.processors.PublishProcessor;
 import io.reactivex.subjects.PublishSubject;
 
 
@@ -18,7 +19,7 @@ import io.reactivex.subjects.PublishSubject;
 
 public class RxList<T> {
     private List<T> list;
-    private PublishSubject<List<T>> subject = PublishSubject.create();
+    private PublishProcessor<Opt<List<T>>> subject = PublishProcessor.create();
 
     public RxList(List<T> list) {
         this.list = (list == null) ? new LinkedList<T>() : list;
@@ -27,57 +28,57 @@ public class RxList<T> {
     public void reset(T item) {
         this.list.clear();
         this.list.add(item);
-        subject.onNext(this.list);
+        subject.onNext(new Opt<>(this.list));
     }
 
     public void reset(Collection<? extends T> collection) {
         this.list.clear();
         this.list.addAll(collection);
-        subject.onNext(this.list);
+        subject.onNext(new Opt<>(this.list));
     }
 
     public void add(T item) {
         this.list.add(item);
-        subject.onNext(this.list);
+        subject.onNext(new Opt<>(this.list));
     }
 
     public void add(int idx, T item) {
         this.list.add(idx, item);
-        subject.onNext(this.list);
+        subject.onNext(new Opt<>(this.list));
     }
 
     public void addAll(Collection<? extends T> collection) {
         this.list.addAll(collection);
-        subject.onNext(this.list);
+        subject.onNext(new Opt<>(this.list));
     }
 
     public void addAll(int position, Collection<? extends T> collection) {
         this.list.addAll(position, collection);
-        subject.onNext(this.list);
+        subject.onNext(new Opt<>(this.list));
     }
 
     public void remove(T item) {
         if (this.list.contains(item)) {
             this.list.remove(item);
-            subject.onNext(this.list);
+            subject.onNext(new Opt<>(this.list));
         }
     }
 
     public void remove(int idx) {
         if (idx >= 0 && idx < this.list.size()) {
             this.list.remove(idx);
-            subject.onNext(this.list);
+            subject.onNext(new Opt<>(this.list));
         }
     }
 
     public void removeAll(Collection<? extends T> collection) {
         this.list.removeAll(collection);
-        subject.onNext(this.list);
+        subject.onNext(new Opt<>(this.list));
     }
 
     public void clear() {
         this.list.clear();
-        subject.onNext(this.list);
+        subject.onNext(new Opt<>(this.list));
     }
 
     public boolean contains(T item) {
@@ -98,14 +99,14 @@ public class RxList<T> {
 
     public void sort(Comparator<T> comparator) {
         Collections.sort(this.list, comparator);
-        subject.onNext(this.list);
+        subject.onNext(new Opt<>(this.list));
     }
 
     public List<T> get() {
         return new ArrayList<>(this.list);
     }
 
-    public Flowable<List<T>> ob() {
-        return Flowable.merge(Flowable.just(list), subject.toFlowable(BackpressureStrategy.LATEST));
+    public Flowable<Opt<List<T>>> ob() {
+        return Flowable.merge(Flowable.just(new Opt<>(list)), subject);
     }
 }

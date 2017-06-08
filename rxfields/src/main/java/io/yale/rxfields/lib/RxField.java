@@ -12,7 +12,7 @@ import io.reactivex.processors.PublishProcessor;
 
 public class RxField<T> {
     private T field;
-    private PublishProcessor<T> subject = PublishProcessor.create();
+    private PublishProcessor<Opt<T>> subject = PublishProcessor.create();
     private Comparator<T> comparator;
 
     public RxField(T field) {
@@ -42,7 +42,7 @@ public class RxField<T> {
             this.field = field;
         }
         if (notSame || forceNotify) {
-            this.subject.onNext(field);
+            this.subject.onNext(new Opt<>(field));
         }
     }
 
@@ -51,12 +51,6 @@ public class RxField<T> {
     }
 
     public Flowable<Opt<T>> ob() {
-        Flowable<Opt<T>> optSubject = subject.map(new Function<T, Opt<T>>() {
-            @Override
-            public Opt<T> apply(@NonNull T t) throws Exception {
-                return new Opt<>(t);
-            }
-        });
-        return Flowable.merge(Flowable.just(new Opt<>(field)), optSubject);
+        return Flowable.merge(Flowable.just(new Opt<>(field)), subject);
     }
 }

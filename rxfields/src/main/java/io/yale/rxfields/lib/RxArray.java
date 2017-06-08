@@ -14,7 +14,7 @@ import io.reactivex.processors.PublishProcessor;
 
 public class RxArray<T> {
     private T[] array;
-    private PublishProcessor<T[]> subject = PublishProcessor.create();
+    private PublishProcessor<Opt<T[]>> subject = PublishProcessor.create();
 
     public RxArray(T[] array) {
         this.array = array;
@@ -39,7 +39,7 @@ public class RxArray<T> {
 
     public void reset(T[] array) {
         this.array = Arrays.copyOf(array, array.length);
-        subject.onNext(this.array);
+        subject.onNext(new Opt<>(this.array));
     }
 
     public boolean contains(T item) {
@@ -60,17 +60,10 @@ public class RxArray<T> {
 
     public void sort(Comparator<T> comparator) {
         Arrays.sort(this.array, comparator);
-        subject.onNext(this.array);
+        subject.onNext(new Opt<>(this.array));
     }
 
     public Flowable<Opt<T[]>> ob() {
-
-        Flowable<Opt<T[]>> optSubject = subject.map(new Function<T[], Opt<T[]>>() {
-            @Override
-            public Opt<T[]> apply(@NonNull T[] ts) throws Exception {
-                return new Opt<>(ts);
-            }
-        });
-        return Flowable.merge(Flowable.just(new Opt<>(array)), optSubject);
+        return Flowable.merge(Flowable.just(new Opt<>(array)), subject);
     }
 }
