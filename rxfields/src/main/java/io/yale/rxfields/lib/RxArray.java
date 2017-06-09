@@ -3,10 +3,8 @@ package io.yale.rxfields.lib;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import io.reactivex.Flowable;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
-import io.reactivex.processors.PublishProcessor;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by yalez on 2016/12/1.
@@ -14,7 +12,7 @@ import io.reactivex.processors.PublishProcessor;
 
 public class RxArray<T> {
     private T[] array;
-    private PublishProcessor<Opt<T[]>> subject = PublishProcessor.create();
+    private PublishSubject<Opt<T[]>> subject = PublishSubject.create();
 
     public RxArray(T[] array) {
         this.array = array;
@@ -63,7 +61,7 @@ public class RxArray<T> {
         subject.onNext(new Opt<>(this.array));
     }
 
-    public Flowable<Opt<T[]>> ob() {
-        return Flowable.merge(Flowable.just(new Opt<>(array)), subject);
+    public Observable<Opt<T[]>> ob() {
+        return Observable.merge(Observable.just(new Opt<>(array)), subject);
     }
 }

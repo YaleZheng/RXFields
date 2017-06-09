@@ -1,10 +1,8 @@
 package io.yale.rxfields.lib;
 
 
-import io.reactivex.Flowable;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
-import io.reactivex.processors.PublishProcessor;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by yalez on 2016/12/1.
@@ -12,7 +10,7 @@ import io.reactivex.processors.PublishProcessor;
 
 public class RxField<T> {
     private T field;
-    private PublishProcessor<Opt<T>> subject = PublishProcessor.create();
+    private PublishSubject<Opt<T>> subject = PublishSubject.create();
     private Comparator<T> comparator;
 
     public RxField(T field) {
@@ -50,7 +48,7 @@ public class RxField<T> {
         return this.field;
     }
 
-    public Flowable<Opt<T>> ob() {
-        return Flowable.merge(Flowable.just(new Opt<>(field)), subject);
+    public Observable<Opt<T>> ob() {
+        return Observable.merge(Observable.just(new Opt<>(field)), subject);
     }
 }

@@ -7,9 +7,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
-import io.reactivex.processors.PublishProcessor;
+import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
 
@@ -19,7 +17,7 @@ import io.reactivex.subjects.PublishSubject;
 
 public class RxList<T> {
     private List<T> list;
-    private PublishProcessor<Opt<List<T>>> subject = PublishProcessor.create();
+    private PublishSubject<Opt<List<T>>> subject = PublishSubject.create();
 
     public RxList(List<T> list) {
         this.list = (list == null) ? new LinkedList<T>() : list;
@@ -106,7 +104,7 @@ public class RxList<T> {
         return new ArrayList<>(this.list);
     }
 
-    public Flowable<Opt<List<T>>> ob() {
-        return Flowable.merge(Flowable.just(new Opt<>(list)), subject);
+    public Observable<Opt<List<T>>> ob() {
+        return Observable.merge(Observable.just(new Opt<>(list)), subject);
     }
 }
