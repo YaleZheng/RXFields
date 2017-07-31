@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion "${MIN_SDK_VERSION}".toInteger()
         targetSdkVersion "${TARGET_SDK_VERSION}".toInteger()
-        versionCode 3
-        versionName "2.0.7"
+        versionCode 4
+        versionName "2.0.8"
     }
     buildTypes {
         release {
